@@ -1,14 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Celo.Service.Models.ServiceModels;
+using Celo.Service.RandomUser.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Celo.Service.RandomUser.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class RandomUserControllerController : ControllerBase
+    public class UserControllerController : ControllerBase
     {
+        private readonly UserService _userService;
+
+        public UserControllerController()
+        {
+        }
+
+        public UserControllerController(UserService userService)
+        {
+            _userService = userService;
+        }
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponse>>> Get()
