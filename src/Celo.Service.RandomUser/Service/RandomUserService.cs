@@ -10,19 +10,19 @@ namespace Celo.Service.RandomUser.Service
         private readonly IUserDataProvider _dataservice;
         public RandomUserService(IUserDataProvider dataservice) => _dataservice = dataservice;
 
-        public Task<bool> DeleteUserAsync()
+        public async Task<IEnumerable<UsersDetails>> GetUserAsync(UserGetRequest request)
+        {
+            return await Task.FromResult(new List<UsersDetails>() {
+                new UsersDetails()
+            });
+        }
+
+        public Task<bool> UpdateUserAsync(UserUpdateRequest request)
         {
             return Task.FromResult(true);
         }
 
-        public async Task<IEnumerable<UserResponse>> GetUserAsync(UserGetRequest request)
-        {
-            return await Task.FromResult(new List<UserResponse>() {
-                new UserResponse()
-            });
-        }
-
-        public Task<bool> UpdateUserAsync()
+        public Task<bool> DeleteUserAsync(int request)
         {
             return Task.FromResult(true);
         }

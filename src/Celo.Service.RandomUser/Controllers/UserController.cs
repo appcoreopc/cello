@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
@@ -24,21 +25,22 @@ namespace Celo.Service.RandomUser.Controllers
         
         // GET api/values
         [HttpGet]
-        [Consumes("application/json")]
-        public async Task<ActionResult<IEnumerable<UserResponse>>> Get([FromBody] UserGetRequest request) {
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get([FromBody] UserGetRequest request) {
             _ilogger.LogInformation("GetUserService");
             var result = await _userService.GetUserAsync(request);
             return Ok(result);
         }
-
-        // POST api/values
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]   
         [Consumes("application/json")]     
-        public async Task<IActionResult> Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
         {
-            return Ok("");
+            var result = _userService.UpdateUserAsync(request);
+            return CreatedAtAction("Save", result);
         }
 
         // PUT api/values/5
@@ -47,7 +49,8 @@ namespace Celo.Service.RandomUser.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(int id, [FromBody] UserUpdateRequest request)
         {
-            return CreatedAtAction("Save", request);
+            var result = _userService.UpdateUserAsync(request);
+            return CreatedAtAction("Save", result);
         }
 
         // DELETE api/values/5
@@ -56,10 +59,10 @@ namespace Celo.Service.RandomUser.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)
         {
+             var result = await _userService.DeleteUserAsync(id);
 
-            return await Task.FromResult(NoContent());// if unsuccessful;
-
-
+            return CreatedAtAction("Save", result);
+            
         }
     }
 }

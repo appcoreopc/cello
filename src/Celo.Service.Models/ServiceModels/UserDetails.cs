@@ -1,6 +1,6 @@
 namespace Celo.Service.Models.ServiceModels
 {
-    public class UserResponse
+    public class UsersDetails
     {
         public string Email { get; set; }
 
@@ -13,4 +13,5 @@ namespace Celo.Service.Models.ServiceModels
         public Picture Picture { get; set; }
 
     }
+
 }
