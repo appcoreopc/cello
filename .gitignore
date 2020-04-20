@@ -1,0 +1,6 @@
+src/Celo.Service.Models/obj/**
+src/Celo.Service.Models/bin/**
+src/Celo.Service.RandomUser/obj/**
+src/Celo.Service.RandomUser/bin/**
+src/Celo.Service.RandomUser.UnitTests/bin/**
+src/Celo.Service.RandomUser.UnitTests/obj/**
