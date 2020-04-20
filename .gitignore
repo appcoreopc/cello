@@ -6,3 +6,5 @@ src/Celo.Service.RandomUser.UnitTests/bin/**
 src/Celo.Service.RandomUser.UnitTests/obj/**
 src/.vscode/tasks.json
 src/.vscode/launch.json
+src/Celo.Data.InMemory/bin/*
+src/Celo.Data.InMemory/obj/*
