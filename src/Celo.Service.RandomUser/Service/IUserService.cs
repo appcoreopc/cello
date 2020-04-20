@@ -7,7 +7,7 @@ namespace Celo.Service.RandomUser.Service
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserResponse>> GetUserAsync(UserRequest request);
+        Task<IEnumerable<UserResponse>> GetUserAsync(UserGetRequest request);
 
         Task<bool> UpdateUserAsync();
 

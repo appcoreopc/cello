@@ -15,7 +15,7 @@ namespace Celo.Service.RandomUser.Service
             return Task.FromResult(true);
         }
 
-        public async Task<IEnumerable<UserResponse>> GetUserAsync(UserRequest request)
+        public async Task<IEnumerable<UserResponse>> GetUserAsync(UserGetRequest request)
         {
             return await Task.FromResult(new List<UserResponse>() {
                 new UserResponse()
