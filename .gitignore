@@ -4,3 +4,5 @@ src/Celo.Service.RandomUser/obj/**
 src/Celo.Service.RandomUser/bin/**
 src/Celo.Service.RandomUser.UnitTests/bin/**
 src/Celo.Service.RandomUser.UnitTests/obj/**
+src/.vscode/tasks.json
+src/.vscode/launch.json

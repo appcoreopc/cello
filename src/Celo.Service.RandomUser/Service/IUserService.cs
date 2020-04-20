@@ -14,5 +14,4 @@ namespace Celo.Service.RandomUser.Service
         Task<bool> DeleteUserAsync();
 
     }
-
 }
