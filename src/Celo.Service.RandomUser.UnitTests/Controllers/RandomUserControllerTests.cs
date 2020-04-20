@@ -5,14 +5,21 @@ using Xunit;
 
 namespace Celo.Service.RandomUser.UnitTests.Controllers
 {
-    public class ControllerTests
+    public class ControllerTests : CoreTest
     {
-        
+         ControllerTestInstance mockInstance; 
+
+         public ControllerTests()
+         {
+             mockInstance = this.CreateInstance();
+         }
+
         [Fact]
         public void WhenUserControllerGetThenExpectListOfUsers()
         {
            var userService = Substitute.For<IUserService>();
-           var controller = new UserController(userService);
+
+           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
            Assert.True(1==1);
 
         }
@@ -22,7 +29,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
         {
            var userService = Substitute.For<IUserService>();
 
-           var controller = new UserController(userService);
+           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
            Assert.True(1==1);
 
         }
@@ -31,7 +38,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
         public void WhenUserControllerUpdateThenStatus201()
         {
            var userService = Substitute.For<IUserService>();
-           var controller = new UserController(userService);
+           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
            Assert.True(1==1);
 
         }
@@ -40,7 +47,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
         public void WhenUserControllerDeleteThenExpect202Status()
         {
            var userService = Substitute.For<IUserService>();
-           var controller = new UserController(userService);
+           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
            Assert.True(1==1);
         }
     }
