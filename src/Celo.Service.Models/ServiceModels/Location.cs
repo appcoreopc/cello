@@ -1,6 +1,7 @@
-namespace Celo.Service.Models.ServiceModels {
-
-    public class Location {
+namespace Celo.Service.Models.ServiceModels
+{
+    public class Location
+    {
 
         public string Stree { get; set; }
 
@@ -8,7 +9,7 @@ namespace Celo.Service.Models.ServiceModels {
 
         public string State { get; set; }
 
-        public string Postcode { get; set; }  
-        
+        public string Postcode { get; set; }
+
     }
 }

@@ -40,8 +40,8 @@ namespace Celo.Service.RandomUser
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            // app.UseHttpsRedirection();
+            // app.UseMvcWithDefaultRoute();
         }
     }
 }
