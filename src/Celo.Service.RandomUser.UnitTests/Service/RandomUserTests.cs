@@ -1,4 +1,6 @@
 using Xunit;
+using NSubstitute;
+using Celo.Service.RandomUser.Service;
 
 namespace Celo.Service.RandomUser.UnitTests.Service
 {
@@ -7,6 +9,7 @@ namespace Celo.Service.RandomUser.UnitTests.Service
         [Fact]
         public void Test1()
         {
+           
 
         }
     }
