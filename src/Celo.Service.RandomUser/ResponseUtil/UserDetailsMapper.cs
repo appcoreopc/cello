@@ -17,6 +17,7 @@ namespace Celo.Service.RandomUser.ResponseUtil
         {
             return new UsersDetails
             {
+                Id = user.Id,
                 Email = user.Email,
                 Name = new Name
                 {

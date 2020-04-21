@@ -1,16 +1,11 @@
-using System;
 using Celo.Service.Models.ServiceModels.Request;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Http;
 
-using Microsoft.Extensions.Logging;
 namespace Celo.Service.RandomUser.ResponseUtil
 {
      public static class ResponseMapper
      {
-         // can't use new switch 
-         public static IActionResult MapResponse(this DataOperationStatus status, ControllerBase controllerbase)
+         public static IActionResult MapResponse(this DataOperationStatus status, ControllerBase controller, string action, object dataObject)
          
          {
              switch (status)
@@ -19,11 +14,10 @@ namespace Celo.Service.RandomUser.ResponseUtil
                  case DataOperationStatus.NoDeleteCarriedOut:
                  case DataOperationStatus.UpdateFailedError:
                  case DataOperationStatus.NoUpdateCarriedOut:
-                    return new NotFoundObjectResult("No resource found");
-                //  case DataOperationStatus.DeleteSuccess:
-                //     return  controllerbase.CreatedAtAction("userdeleted","");
-                //  case DataOperationStatus.UpdateSuccess:
-                //     return new CreatedAtActionResult("/user", "");
+                    return controller.NoContent();
+                 case DataOperationStatus.DeleteSuccess:
+                 case DataOperationStatus.UpdateSuccess:
+                       return  controller.CreatedAtAction(action, dataObject);
                 default:
                     return new OkResult();
              }

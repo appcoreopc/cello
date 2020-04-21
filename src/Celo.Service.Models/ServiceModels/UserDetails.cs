@@ -2,6 +2,7 @@ namespace Celo.Service.Models.ServiceModels
 {
     public class UsersDetails
     {
+        public int Id { get; set; }
         public string Email { get; set; }
 
         public Name Name { get; set; }

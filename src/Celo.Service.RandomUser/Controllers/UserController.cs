@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Celo.Service.RandomUser.ResponseUtil;
 
 namespace Celo.Service.RandomUser.Controllers
 {
@@ -33,13 +33,14 @@ namespace Celo.Service.RandomUser.Controllers
             return Ok(result);
         }
         
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UserUpdateRequest request)
         {
-            var updateResult = _userService.UpdateUserAsync(request);
-            return CreatedAtAction("Save", updateResult);
+            var updateResult = await _userService.UpdateUserAsync(request);
+            return updateResult.MapResponse(this, "UpdateUserAsync", request);
+            ///return CreatedAtAction("Save", request);
         }
 
         [HttpDelete("{id}")]
@@ -47,8 +48,8 @@ namespace Celo.Service.RandomUser.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-             var deleteResult = await _userService.DeleteUserAsync(id);
-            return CreatedAtAction("Save", deleteResult);
+            var deleteResult = await _userService.DeleteUserAsync(id);
+            return deleteResult.MapResponse(this, "DeleteAsync", new object{});
         }
 
         [HttpPost]
@@ -59,7 +60,7 @@ namespace Celo.Service.RandomUser.Controllers
         {
              var service = new CreateUserService(_userService);
              await service.CreateUserAsync();
-             return Ok();
+             return CreatedAtAction("CreateAsync", request);
         }
     }
 }
