@@ -60,43 +60,43 @@ namespace Celo.Service.RandomUser.Controllers
         public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
         {
             
-            await _userService.CreateUser(new 
+            await _userService.CreateUserAsync(new 
             User()
             { 
-                 Id = 1, FirstName = "test1",Last = "woo", Dob = System.DateTime.Now
+                 Id = 1, FirstName = "test1", LastName = "woo", Dob = System.DateTime.Now
             
              });
 
-            await _userService.CreateUser(new 
+            await _userService.CreateUserAsync(new 
             User()
             { 
-                 Id = 2, FirstName = "test2",Last = "woo", Dob = System.DateTime.Now
+                 Id = 2, FirstName = "test2",LastName = "woo", Dob = System.DateTime.Now
             
              });
 
-            await _userService.CreateUser(new 
+            await _userService.CreateUserAsync(new 
             User()
             { 
-                 Id = 3, FirstName = "test3",Last = "woo", Dob = System.DateTime.Now
+                 Id = 3, FirstName = "test3", LastName = "woo", Dob = System.DateTime.Now
             
              });
 
-             await _userService.CreateUser(new 
+             await _userService.CreateUserAsync(new 
             User()
             { 
-                 Id = 4, FirstName = "test4",Last = "woo", Dob = System.DateTime.Now
+                 Id = 4, FirstName = "test4", LastName = "woo", Dob = System.DateTime.Now
             
              });
 
-             await _userService.CreateUser(new 
+             await _userService.CreateUserAsync(new 
             User()
             { 
-                 Id = 5, FirstName = "test5",Last = "woo", Dob = System.DateTime.Now
+                 Id = 5, FirstName = "test5", LastName = "woo", Dob = System.DateTime.Now
             
              });
 
              return Ok();
-            
+        
         }
 
     }

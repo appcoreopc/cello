@@ -14,7 +14,7 @@ namespace Celo.Service.RandomUser.Service
 
         Task<DataOperationStatus> DeleteUserAsync(int request);
 
-        Task CreateUser(User user);
+        Task CreateUserAsync(User user);
 
     }
 }

@@ -22,10 +22,17 @@ namespace Celo.Data.InMemory
 
         public string Postcode { get; set; }
 
-        public string Last { get; set; }
+        public string Email { get; set; }
 
-        public string First { get; set; }
+        public string Phone { get; set; }
 
+        public string LargePictureUrl { get; set; }
+
+         public string MediumPictureUrl { get; set; }
+
+        public string ThumbNail { get; set; }
+
+        public uint Age { get; set; }
 
     }
 
