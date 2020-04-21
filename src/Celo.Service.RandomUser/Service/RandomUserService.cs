@@ -13,22 +13,28 @@ namespace Celo.Service.RandomUser.Service
         public async Task<IEnumerable<UsersDetails>> GetUserAsync(UserGetRequest request)
         {
 
-            await _dataservice.GetUserAsync();
-
+            await _dataservice.GetUserAsync(request);
 
             return await Task.FromResult(new List<UsersDetails>() {
                 new UsersDetails()
             });
         }
 
-        public Task<bool> UpdateUserAsync(UserUpdateRequest request)
+        public Task<DataOperationStatus> UpdateUserAsync(UserUpdateRequest request)
         {
-            return Task.FromResult(true);
+            return _dataservice.UpdateUserAsync(request);
         }
 
-        public Task<bool> DeleteUserAsync(int request)
+        public Task<DataOperationStatus> DeleteUserAsync(int request)
         {
-            return Task.FromResult(true);
+            return _dataservice.DeleteUserAsync(request);
         }
+
+
+         public Task<DataOperationStatus> GenerateData(int record)
+        {
+            return _dataservice.DeleteUserAsync(record);
+        }
+
     }
 }

@@ -3,7 +3,7 @@ namespace Celo.Service.Models.ServiceModels
     public class Location
     {
 
-        public string Stree { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 

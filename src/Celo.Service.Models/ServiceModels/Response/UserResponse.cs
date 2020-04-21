@@ -6,6 +6,5 @@ namespace Celo.Service.Models.ServiceModel.Response
     public class UserResponse
     {
         public IEnumerable<UsersDetails> Users { get; set; }
-
     }
 }

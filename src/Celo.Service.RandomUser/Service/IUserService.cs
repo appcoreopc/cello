@@ -9,9 +9,9 @@ namespace Celo.Service.RandomUser.Service
     {
         Task<IEnumerable<UsersDetails>> GetUserAsync(UserGetRequest request);
 
-        Task<bool> UpdateUserAsync(UserUpdateRequest request);
+        Task<DataOperationStatus> UpdateUserAsync(UserUpdateRequest request);
 
-        Task<bool> DeleteUserAsync(int request);
+        Task<DataOperationStatus> DeleteUserAsync(int request);
 
     }
 }

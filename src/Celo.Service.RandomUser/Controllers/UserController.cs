@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Service;
@@ -28,10 +29,8 @@ namespace Celo.Service.RandomUser.Controllers
         //[Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         //public async Task<ActionResult<IEnumerable<UsersDetails>>> Get([FromBody] UserGetRequest request) 
-        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get() 
+        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get(UserGetRequest request) 
         {
-            UserGetRequest request = new UserGetRequest();
-            _ilogger.LogInformation("GetUserService");
             var result = await _userService.GetUserAsync(request);
             return Ok(result);
         }
@@ -42,8 +41,16 @@ namespace Celo.Service.RandomUser.Controllers
         [Consumes("application/json")]     
         public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
         {
-            var result = _userService.UpdateUserAsync(request);
-            return CreatedAtAction("Save", result);
+            var service = new CreateUserService(new Data.InMemory.UserDataContext());
+            await service.CreateUserAsync(new 
+            User()
+            { 
+                 Id = 1, FirstName = "test",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+             return Ok();
+            
         }
 
         // PUT api/values/5
@@ -63,7 +70,6 @@ namespace Celo.Service.RandomUser.Controllers
         public async Task<IActionResult> Delete(int id)
         {
              var result = await _userService.DeleteUserAsync(id);
-
             return CreatedAtAction("Save", result);
             
         }
