@@ -26,34 +26,15 @@ namespace Celo.Service.RandomUser.Controllers
         
         // GET api/values
         [HttpGet]
-        //[Consumes(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        //public async Task<ActionResult<IEnumerable<UsersDetails>>> Get([FromBody] UserGetRequest request) 
         public async Task<ActionResult<IEnumerable<UsersDetails>>> Get(UserGetRequest request) 
         {
             var result = await _userService.GetUserAsync(request);
             return Ok(result);
         }
         
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]   
-        [Consumes("application/json")]     
-        public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
-        {
-            var service = new CreateUserService(new Data.InMemory.UserDataContext());
-            await service.CreateUserAsync(new 
-            User()
-            { 
-                 Id = 1, FirstName = "test",Last = "woo", Dob = System.DateTime.Now
-            
-             });
-
-             return Ok();
-            
-        }
-
-        // PUT api/values/5
+        
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,7 +44,6 @@ namespace Celo.Service.RandomUser.Controllers
             return CreatedAtAction("Save", result);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,7 +51,53 @@ namespace Celo.Service.RandomUser.Controllers
         {
              var result = await _userService.DeleteUserAsync(id);
             return CreatedAtAction("Save", result);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]   
+        [Consumes("application/json")]     
+        public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
+        {
+            
+            await _userService.CreateUser(new 
+            User()
+            { 
+                 Id = 1, FirstName = "test1",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+            await _userService.CreateUser(new 
+            User()
+            { 
+                 Id = 2, FirstName = "test2",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+            await _userService.CreateUser(new 
+            User()
+            { 
+                 Id = 3, FirstName = "test3",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+             await _userService.CreateUser(new 
+            User()
+            { 
+                 Id = 4, FirstName = "test4",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+             await _userService.CreateUser(new 
+            User()
+            { 
+                 Id = 5, FirstName = "test5",Last = "woo", Dob = System.DateTime.Now
+            
+             });
+
+             return Ok();
             
         }
+
     }
 }

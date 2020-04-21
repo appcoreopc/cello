@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
 
@@ -13,7 +14,7 @@ namespace Celo.Service.RandomUser.Service
         public async Task<IEnumerable<UsersDetails>> GetUserAsync(UserGetRequest request)
         {
 
-            await _dataservice.GetUserAsync(request);
+            var result = await _dataservice.GetUserAsync(request);
 
             return await Task.FromResult(new List<UsersDetails>() {
                 new UsersDetails()
@@ -30,11 +31,9 @@ namespace Celo.Service.RandomUser.Service
             return _dataservice.DeleteUserAsync(request);
         }
 
-
-         public Task<DataOperationStatus> GenerateData(int record)
+        public async Task CreateUser(User user)
         {
-            return _dataservice.DeleteUserAsync(record);
+             await _dataservice.CreateUserAsync(user);
         }
-
     }
 }

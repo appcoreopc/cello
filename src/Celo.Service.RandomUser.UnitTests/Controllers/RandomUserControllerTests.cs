@@ -7,7 +7,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 {
     public class ControllerTests : CoreTest
     {
-         ControllerTestInstance mockInstance; 
+         private ControllerTestInstance mockInstance; 
 
          public ControllerTests()
          {

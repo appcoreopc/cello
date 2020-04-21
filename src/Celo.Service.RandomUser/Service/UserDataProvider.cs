@@ -24,7 +24,7 @@ namespace Celo.Service.RandomUser.Service
             switch (validatedRequest.QueryRequestType)
             {
                 case QueryRequestType.NameQuery:
-                    return await QueryBy((user) => (user.FirstName == validatedRequest.FirstName || user.LastName == request.LastName), AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    return await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, request.TotalRecordRequested);
 
                 case QueryRequestType.RandomQuery:
                     return await QueryBy((user) => true, AppConstant.DefaultStartPage, request.TotalRecordRequested);
@@ -94,5 +94,12 @@ namespace Celo.Service.RandomUser.Service
         {
             return _context.User.SingleOrDefault(x => x.Id == userId);
         }
+
+        public async Task CreateUserAsync(User user)
+        {
+            await _context.User.AddAsync(user);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

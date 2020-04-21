@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Celo.Service.RandomUser\Celo.Service.RandomUser.csproj" />
+    <ProjectReference Include="..\Celo.Data.InMemory\Celo.Data.InMemory.csproj" />
   </ItemGroup>
 
 </Project>
