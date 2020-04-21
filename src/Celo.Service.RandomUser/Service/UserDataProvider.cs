@@ -7,15 +7,17 @@ using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Validations;
 using Celo.Service.RandomUser.Constants;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Celo.Service.RandomUser.Service
 {
     class UserDataProvider : IUserDataProvider
     {
         private readonly UserDataContext _context;
+        private readonly ILogger<UserDataProvider> _logger;
         private readonly IQueryValidator _queryValidator = new QueryValidator();
 
-        public UserDataProvider(UserDataContext context) => _context = context;
+        public UserDataProvider(UserDataContext context, ILogger<UserDataProvider> logger) => (_context, _logger) = (context, logger);
 
         public async Task<IEnumerable<User>> GetUserAsync(UserGetRequest request)
         {
@@ -36,7 +38,6 @@ namespace Celo.Service.RandomUser.Service
         public async Task<DataOperationStatus> UpdateUserAsync(UserUpdateRequest user)
         {
             DataOperationStatus status = DataOperationStatus.Unknown;
-
             try
             {
                 var userExist = GetUserDetails(user.Id);
@@ -53,12 +54,12 @@ namespace Celo.Service.RandomUser.Service
             }
             catch (DbUpdateException dbe)
             {
+                _logger.LogError(dbe.Message);
                 status = DataOperationStatus.UpdateFailedError;
             }
 
             return status;
         }
-
 
         public async Task<DataOperationStatus> DeleteUserAsync(int userId)
         {
@@ -79,6 +80,7 @@ namespace Celo.Service.RandomUser.Service
             }
             catch (DbUpdateException dbe)
             {
+                _logger.LogError(dbe.Message);
                 status = DataOperationStatus.DeleteFailedError;
             }
 
@@ -100,6 +102,5 @@ namespace Celo.Service.RandomUser.Service
             await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
         }
-
     }
 }

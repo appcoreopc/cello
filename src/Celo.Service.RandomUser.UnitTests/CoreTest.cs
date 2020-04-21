@@ -5,10 +5,11 @@ using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Controllers;
 using Celo.Service.RandomUser.Service;
+using Celo.Service.RandomUser.UnitTests.Controllers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace Celo.Service.RandomUser.UnitTests.Controllers
+namespace Celo.Service.RandomUser.UnitTests
 {
     public class CoreTest
     {

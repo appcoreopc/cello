@@ -5,7 +5,7 @@ namespace Celo.Service.RandomUser.ResponseUtil
 {
      public static class ResponseMapper
      {
-         public static IActionResult MapResponse(this DataOperationStatus status, ControllerBase controller, string action, object dataObject)
+         public static IActionResult MapResponse(this DataOperationStatus status, string action, object dataObject)
          
          {
              switch (status)
@@ -14,10 +14,10 @@ namespace Celo.Service.RandomUser.ResponseUtil
                  case DataOperationStatus.NoDeleteCarriedOut:
                  case DataOperationStatus.UpdateFailedError:
                  case DataOperationStatus.NoUpdateCarriedOut:
-                    return controller.NoContent();
+                    return new NotFoundObjectResult("No resource found");
                  case DataOperationStatus.DeleteSuccess:
                  case DataOperationStatus.UpdateSuccess:
-                       return  controller.CreatedAtAction(action, dataObject);
+                      return new CreatedResult(action, dataObject);
                 default:
                     return new OkResult();
              }

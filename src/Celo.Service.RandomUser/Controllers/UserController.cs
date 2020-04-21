@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Celo.Service.RandomUser.ResponseUtil;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Celo.Service.RandomUser.UnitTests")]
 
 namespace Celo.Service.RandomUser.Controllers
 {
@@ -15,6 +18,9 @@ namespace Celo.Service.RandomUser.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private const string UpdateActionName = "UpdateUserAsync";
+        private const string DeleteActionName = "DeleteAsync";
+        private const string CreatedActionName = "CreateAsync";
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _ilogger;
 
@@ -39,8 +45,8 @@ namespace Celo.Service.RandomUser.Controllers
         public async Task<IActionResult> UpdateUserAsync([FromBody] UserUpdateRequest request)
         {
             var updateResult = await _userService.UpdateUserAsync(request);
-            return updateResult.MapResponse(this, "UpdateUserAsync", request);
-            ///return CreatedAtAction("Save", request);
+            return updateResult.MapResponse(UpdateActionName, request);
+           
         }
 
         [HttpDelete("{id}")]
@@ -49,7 +55,7 @@ namespace Celo.Service.RandomUser.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var deleteResult = await _userService.DeleteUserAsync(id);
-            return deleteResult.MapResponse(this, "DeleteAsync", new object{});
+            return deleteResult.MapResponse(DeleteActionName, new object{});
         }
 
         [HttpPost]
@@ -60,7 +66,7 @@ namespace Celo.Service.RandomUser.Controllers
         {
              var service = new CreateUserService(_userService);
              await service.CreateUserAsync();
-             return CreatedAtAction("CreateAsync", request);
+             return CreatedAtAction(CreatedActionName, request);
         }
     }
 }

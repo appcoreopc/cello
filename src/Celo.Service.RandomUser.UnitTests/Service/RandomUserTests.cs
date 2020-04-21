@@ -1,7 +1,6 @@
 using Xunit;
 using NSubstitute;
 using Celo.Service.RandomUser.Service;
-using Celo.Service.RandomUser.UnitTests.Controllers;
 using Celo.Service.Models.ServiceModels.Request;
 using System.Threading.Tasks;
 using System.Linq;
