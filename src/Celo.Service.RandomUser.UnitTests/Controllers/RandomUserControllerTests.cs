@@ -38,7 +38,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
            _mockService = this.CreateInstance();
 
            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
-           var result = controller.Put(this.FakeUserUpdateRequest());
+           var result = controller.UpdateUserAsync(this.FakeUserUpdateRequest());
 
             _mockService.UserService.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
         }
@@ -49,7 +49,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
            _mockService = this.CreateInstance();
 
            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
-           var result = controller.Delete(1);
+           var result = controller.DeleteAsync(1);
 
            _mockService.UserService.Received().DeleteUserAsync(Arg.Any<int>());
           
