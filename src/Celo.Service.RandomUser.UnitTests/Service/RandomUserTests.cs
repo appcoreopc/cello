@@ -13,53 +13,60 @@ namespace Celo.Service.RandomUser.UnitTests.Service
         [Fact]
         public void WhenGetUserExecutesReturnSingleResultThenResultUserResponse()
         {
-            var serviceMock = this.CreateMock();
-            var target = new RandomUserService(serviceMock);
-
-            target.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetSingleUserResponse().Users));
-            var result = target.GetUserAsync(this.FakeUserGetRequest()).Result;
-
-            Assert.True(result.Count() == 1);
-            serviceMock.Received().GetUserAsync(Arg.Any<UserGetRequest>());
+            var dataProviderService = this.CreateMock();
+            
+            dataProviderService.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetFakeDatabaseUserData()));
+            
+            var target = new RandomUserService(dataProviderService);
+            var result = target.GetUserAsync(new UserGetRequest()).Result;
+           
+            dataProviderService.Received().GetUserAsync(Arg.Any<UserGetRequest>());
+            Assert.True(result.Count() == 2);
         }
 
         [Fact]
         public void WhenGetUserExecutesReturnSingleResultThenResultIsOne()
         {
-            var serviceMock = this.CreateMock();
-            var target = new RandomUserService(serviceMock);
-
-            target.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetArrayUserResponse().Users));
-            var result = target.GetUserAsync(this.FakeUserGetRequest()).Result;
-
-            Assert.True(result.Count() == GetArrayUserResponse().Users.Count());
-            serviceMock.Received().GetUserAsync(Arg.Any<UserGetRequest>());
+            var dataProviderService = this.CreateMock();
+            
+            dataProviderService.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetFakeSingleDatabaseUserData()));
+            
+            var target = new RandomUserService(dataProviderService);
+            var result = target.GetUserAsync(new UserGetRequest()).Result;
+           
+            dataProviderService.Received().GetUserAsync(Arg.Any<UserGetRequest>());
+            Assert.True(result.Count() == 1);
         }
-
 
         [Fact]
         public void WhenUpdateUserExecutesThenReturnStatusOk()
         {
-            var serviceMock = this.CreateMock();
-            var target = new RandomUserService(serviceMock);
+            var dataProviderService = this.CreateMock();
+            var target = new RandomUserService(dataProviderService);
 
-            var result = target.UpdateUserAsync(this.FakeUserUpdateRequest());
+            dataProviderService.UpdateUserAsync(Arg.Any<UserUpdateRequest>()).Returns(Task.FromResult(DataOperationStatus.UpdateSuccess));
 
-            Assert.IsType<DataOperationStatus>(result);
-            serviceMock.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
+            var result = target.UpdateUserAsync(this.FakeUserUpdateRequest()).Result;
+           
+            Assert.True(result == DataOperationStatus.UpdateSuccess);
+            dataProviderService.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
         }
 
 
         [Fact]
         public void WhenDeleteUserExecutesThenReturnStatusOk()
         {
-            var serviceMock = this.CreateMock();
-            var target = new RandomUserService(serviceMock);
+            var dataProviderService = this.CreateMock();
+            var target = new RandomUserService(dataProviderService);
 
-            var result = target.DeleteUserAsync(this.fakeUserId);
+            int fakeUserId = 1;
 
-            Assert.IsType<DataOperationStatus>(result);
-            serviceMock.Received().DeleteUserAsync(Arg.Any<int>());
+            dataProviderService.DeleteUserAsync(Arg.Any<int>()).Returns(Task.FromResult(DataOperationStatus.DeleteSuccess));
+
+            var result = target.DeleteUserAsync(fakeUserId).Result;
+           
+            Assert.True(result == DataOperationStatus.DeleteSuccess);
+            dataProviderService.Received().DeleteUserAsync(fakeUserId);
         }
 
         private IUserDataProvider CreateMock()

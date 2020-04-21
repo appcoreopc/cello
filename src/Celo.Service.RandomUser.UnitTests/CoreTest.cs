@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModel.Response;
 using Celo.Service.Models.ServiceModels;
 using Celo.Service.Models.ServiceModels.Request;
@@ -27,7 +28,6 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
         protected ControllerTestInstance CreateInstance()
         {
-
             return new ControllerTestInstance
             {
                 LoggerInstance = Substitute.For<ILogger<UserController>>(),
@@ -38,11 +38,10 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
         protected UserGetRequest FakeUserGetRequest() 
         {
             return new UserGetRequest {
-
+                
                 FirstName = fakeFirstName, 
                 LastName  = fakeLastName,
                 TotalRecordRequested = fakeTotalRequested
-
             };
         }
 
@@ -79,13 +78,39 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
             };
         }
 
-         protected UserResponse GetUserResponse() 
+        protected UserResponse GetUserResponse() 
         {
             return new UserResponse
             { 
                 Users = new List<UsersDetails> {
                     this.CreateUserDetails(fakeUserFirstName, fakeUserLastName)
                 }
+            };
+        }
+
+        protected IEnumerable<User> GetFakeDatabaseUserData() 
+        {
+            return new List<User>
+            {
+                this.CreateDatabaseUserData(fakeFirstName, fakeLastName),
+                this.CreateDatabaseUserData(fakeUserFirstNameMar, fakeUserLastNameMar)
+            };
+        }
+
+         protected IEnumerable<User> GetFakeSingleDatabaseUserData() 
+        {
+            return new List<User>
+            {
+                this.CreateDatabaseUserData(fakeFirstName, fakeLastName)
+            };
+        }
+
+        private User CreateDatabaseUserData(string FirstName, string LastName) 
+        {    
+            return new User {
+                Email = fakeUserEmail,
+                LastName = FirstName,
+                FirstName = LastName
             };
         }
 

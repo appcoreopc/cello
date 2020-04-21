@@ -1,5 +1,5 @@
+using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Controllers;
-using Celo.Service.RandomUser.Service;
 using NSubstitute;
 using Xunit;
 
@@ -7,48 +7,52 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 {
     public class ControllerTests : CoreTest
     {
-         private ControllerTestInstance mockInstance; 
-
-         public ControllerTests()
-         {
-             mockInstance = this.CreateInstance();
-         }
+         private ControllerTestInstance _mockService; 
 
         [Fact]
-        public void WhenUserControllerGetThenExpectListOfUsers()
+        public void WhenUserControllerGetUsersExecuteThenExpectListOfUsers()
         {
-           var userService = Substitute.For<IUserService>();
+           _mockService = this.CreateInstance();
 
-           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
-           Assert.True(1==1);
+           var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+
+          var result = controller.GetUsers(this.FakeUserGetRequest());
+
+          _mockService.UserService.Received().GetUserAsync(Arg.Any<UserGetRequest>());
 
         }
 
         [Fact]
         public void WhenUserControllerSingleRequestThenExpectOneUser()
         {
-           var userService = Substitute.For<IUserService>();
+           _mockService = this.CreateInstance();
 
-           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
-           Assert.True(1==1);
-
+           var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+           var result = controller.GetUsers(this.FakeUserGetRequest());
+           _mockService.UserService.Received().GetUserAsync(Arg.Any<UserGetRequest>());
         }
 
          [Fact]
-        public void WhenUserControllerUpdateThenStatus201()
+        public void WhenUserControllerUpdateThenUserUpdateServiceCalleds()
         {
-           var userService = Substitute.For<IUserService>();
-           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
-           Assert.True(1==1);
+           _mockService = this.CreateInstance();
 
+           var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+           var result = controller.Put(this.FakeUserUpdateRequest());
+
+            _mockService.UserService.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
         }
 
          [Fact]
-        public void WhenUserControllerDeleteThenExpect202Status()
+        public void WhenUserControllerDeleteThenUserDeleteServiceCalled()
         {
-           var userService = Substitute.For<IUserService>();
-           var controller = new UserController(mockInstance.UserService, mockInstance.LoggerInstance);
-           Assert.True(1==1);
+           _mockService = this.CreateInstance();
+
+           var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+           var result = controller.Delete(1);
+
+           _mockService.UserService.Received().DeleteUserAsync(Arg.Any<int>());
+          
         }
     }
 }

@@ -24,21 +24,19 @@ namespace Celo.Service.RandomUser.Controllers
             _ilogger = logger;
         }
         
-        // GET api/values
         [HttpGet]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get(UserGetRequest request) 
+        public async Task<ActionResult<IEnumerable<UsersDetails>>> GetUsers(UserGetRequest request) 
         {
             var result = await _userService.GetUserAsync(request);
             return Ok(result);
         }
         
-        
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put(int id, [FromBody] UserUpdateRequest request)
+        public async Task<IActionResult> Put([FromBody] UserUpdateRequest request)
         {
             var result = _userService.UpdateUserAsync(request);
             return CreatedAtAction("Save", result);
@@ -56,7 +54,7 @@ namespace Celo.Service.RandomUser.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]   
-        [Consumes("application/json")]     
+        [Consumes(MediaTypeNames.Application.Json)]  
         public async Task<IActionResult> Post([FromBody] UserUpdateRequest request)
         {
             
