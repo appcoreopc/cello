@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Celo.Service.Models\Celo.Service.Models.csproj" />
+    <ProjectReference Include="..\Celo.Data.InMemory\Celo.Data.InMemory.csproj" />
   </ItemGroup>
 
 </Project>

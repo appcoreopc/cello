@@ -25,9 +25,12 @@ namespace Celo.Service.RandomUser.Controllers
         
         // GET api/values
         [HttpGet]
-        [Consumes(MediaTypeNames.Application.Json)]
+        //[Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get([FromBody] UserGetRequest request) {
+        //public async Task<ActionResult<IEnumerable<UsersDetails>>> Get([FromBody] UserGetRequest request) 
+        public async Task<ActionResult<IEnumerable<UsersDetails>>> Get() 
+        {
+            UserGetRequest request = new UserGetRequest();
             _ilogger.LogInformation("GetUserService");
             var result = await _userService.GetUserAsync(request);
             return Ok(result);

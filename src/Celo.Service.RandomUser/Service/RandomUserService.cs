@@ -12,6 +12,10 @@ namespace Celo.Service.RandomUser.Service
 
         public async Task<IEnumerable<UsersDetails>> GetUserAsync(UserGetRequest request)
         {
+
+            await _dataservice.GetUserAsync();
+
+
             return await Task.FromResult(new List<UsersDetails>() {
                 new UsersDetails()
             });
