@@ -1,6 +1,5 @@
 using Xunit;
 using Celo.Service.Models.ServiceModels.Request;
-
 using Celo.Service.RandomUser.ResponseUtil;
 using Microsoft.AspNetCore.Mvc;
 
