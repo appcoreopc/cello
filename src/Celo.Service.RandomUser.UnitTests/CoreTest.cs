@@ -13,19 +13,19 @@ namespace Celo.Service.RandomUser.UnitTests
 {
     public class CoreTest
     {
-        public const string fakeFirstName = "fakeusername";
+        public const string fakeFirstName = "fakeFirstName";
         public string fakeLastName = "fakeLastName";
         public int fakeTotalRequested= 10;
         public int fakeUserId = 999;
         public string fakeUserEmail = "kepung@gmail.com";
         public string fakeUserTitle = "fakeUserTitle";
-        private string fakeUserFirstName = "Jeremy";
-        private string fakeUserLastName = "Woo";
-        private string fakeUserFirstNameMar = "Mars";
-        private string fakeUserLastNameMar = "John";
+        public string fakeUserFirstName = "Jeremy";
+        public string fakeUserLastName = "Woo";
+        public string fakeUserFirstNameMar = "Mars";
+        public string fakeUserLastNameMar = "John";
 
-        private string fakeUserFirstNameJane = "Jane";
-        private string fakeUserLastNameJane = "Allan";
+        public string fakeUserFirstNameJane = "Jane";
+        public string fakeUserLastNameJane = "Allan";
 
         protected ControllerTestInstance CreateInstance()
         {
@@ -106,12 +106,12 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-        private User CreateDatabaseUserData(string FirstName, string LastName) 
+        private User CreateDatabaseUserData(string UserFirstName, string UserLastName) 
         {    
             return new User {
                 Email = fakeUserEmail,
-                LastName = FirstName,
-                FirstName = LastName
+                LastName = UserLastName,
+                FirstName = UserFirstName
             };
         }
 
