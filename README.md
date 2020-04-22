@@ -10,19 +10,23 @@ Help us make the Random User Generator better by contributing to our database an
 
 ### Guidelines
 
-Run the aplication. Next create some sample datasets, send an empty post request 
+Run the aplication. 
+
+Next,to create some sample datasets, send an empty post request 
 
 Create a POST with the following to http://localhost/user
+
+(json / body content)
 {
   
 }
 
-To Retrieve records, create a GET request to http://localhost/user
+To Retrieve records, fire a GET request to http://localhost/user
 {
   "TotalRecordRequested" : 4
 }
 
-Or your can use 
+Or your can use to run name based query.
 
 {
   "firstname" : "", 
@@ -40,6 +44,5 @@ To Update, create a PUT request to http://localhost/user
 Send a HTTP PUT command
 
 http://localhost/suser/UserValidNumber
-
 
 ### How to use
