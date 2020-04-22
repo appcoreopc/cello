@@ -12,7 +12,7 @@ namespace Celo.Data.InMemory
 
         public string LastName { get; set; }
 
-        public DateTime Dob { get; set; }
+        public DateTime? Dob { get; set; }
 
         public string Street { get; set; }
 
@@ -32,7 +32,7 @@ namespace Celo.Data.InMemory
 
         public string ThumbNail { get; set; }
 
-        public uint Age { get; set; }
+        public uint? Age { get; set; }
 
     }
 

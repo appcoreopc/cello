@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModels;
 using System.Linq;
+using System;
 
 namespace Celo.Service.RandomUser.ResponseUtil
 {
@@ -40,5 +41,22 @@ namespace Celo.Service.RandomUser.ResponseUtil
             };
         }
 
+         public static User MapElementToUserDataObject(this UsersDetails user)
+        {
+            return new User
+            {
+                Email = user.Email,
+                FirstName = user.Name?.First,
+                LastName = user.Name?.Last,
+                Title = user.Name?.Title,
+                Phone = user.Phone,
+                LargePictureUrl = user.Picture?.Large,
+                MediumPictureUrl = user.Picture?.Medium,
+                ThumbNail = user.Picture?.Thumbnail,
+                Dob = user.Dob?.Date,
+                Age = user.Dob?.Age
+              
+            };
+        }
     }
 }

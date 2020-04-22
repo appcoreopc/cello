@@ -8,6 +8,7 @@ using Celo.Service.RandomUser.Validations;
 using Celo.Service.RandomUser.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Celo.Service.RandomUser.ResponseUtil;
 
 namespace Celo.Service.RandomUser.Service
 {
@@ -46,6 +47,7 @@ namespace Celo.Service.RandomUser.Service
 
                 if (userExist != null)
                 {
+                    userExist = user.MapElementToUserDataObject();
                     var updatedUser = _context.User.Update(userExist);
                     var updateResult = await _context.SaveChangesAsync();
 
