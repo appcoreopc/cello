@@ -25,17 +25,20 @@ namespace Celo.Service.RandomUser.Service
         public async Task<IEnumerable<User>> GetUserAsync(UserGetRequest request)
         {
             var validatedRequest = _queryValidator.ValidateUserQueryRequest(request);
+            IEnumerable<User> resultset = null; 
 
             switch (validatedRequest.QueryRequestType)
             {
                 case QueryRequestType.NameQuery:
-                    return await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    resultset =  await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    break;
 
                 case QueryRequestType.RandomQuery:
-                    return await QueryBy((user) => true, AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    resultset = await QueryBy((user) => true, AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    break;
             }
 
-            return new List<User>();
+            return resultset ?? new List<User>();
         }
 
         public async Task<DataOperationStatus> UpdateUserAsync(UserUpdateRequest user)
@@ -47,8 +50,8 @@ namespace Celo.Service.RandomUser.Service
 
                 if (userExist != null)
                 {
-                    userExist = user.MapElementToUserDataObject();
-                    var updatedUser = _context.User.Update(userExist);
+                    var modifiedUser = user.MapElementToUserDataObject(userExist);
+                    var updatedUser = _context.User.Update(modifiedUser);
                     var updateResult = await _context.SaveChangesAsync();
 
                     if (updateResult > DbOperationRecordAffected)

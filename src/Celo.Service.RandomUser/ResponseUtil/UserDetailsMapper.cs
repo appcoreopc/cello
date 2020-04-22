@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Celo.Data.InMemory;
 using Celo.Service.Models.ServiceModels;
 using System.Linq;
-using System;
+using Celo.Service.Models.ServiceModels.Request;
 
 namespace Celo.Service.RandomUser.ResponseUtil
 {
@@ -41,22 +41,20 @@ namespace Celo.Service.RandomUser.ResponseUtil
             };
         }
 
-         public static User MapElementToUserDataObject(this UsersDetails user)
+        public static User MapElementToUserDataObject(this UserUpdateRequest user, User userDataObject)
         {
-            return new User
-            {
-                Email = user.Email,
-                FirstName = user.Name?.First,
-                LastName = user.Name?.Last,
-                Title = user.Name?.Title,
-                Phone = user.Phone,
-                LargePictureUrl = user.Picture?.Large,
-                MediumPictureUrl = user.Picture?.Medium,
-                ThumbNail = user.Picture?.Thumbnail,
-                Dob = user.Dob?.Date,
-                Age = user.Dob?.Age
-              
-            };
+
+            userDataObject.Email = user.Email;
+            userDataObject.FirstName = user.FirstName;
+            userDataObject.LastName = user.LastName;
+            userDataObject.Title = user.Title;
+            userDataObject.Phone = user.Phone;
+            userDataObject.LargePictureUrl = user.LargePictureUrl;
+            userDataObject.MediumPictureUrl = user.MediumPictureUrl;
+            userDataObject.ThumbNail = user.ThumbNail;
+            userDataObject.Dob = user.Dob;
+            userDataObject.Age = user.Age;
+            return userDataObject;
         }
     }
 }
