@@ -12,6 +12,7 @@ namespace Celo.Service.RandomUser.Service
         private const int MaxValue = 30000;
         private const int MaxRecordToCreate = 30;
         private const string LocalUserTitle = "Demo Random User";
+        private const string FakeImageUrl = "https://randomuser.me/api/portraits/men/75.jpg";
         private readonly IUserService _dataProvider;
 
         public CreateUserService(IUserService dataProvider) => _dataProvider = dataProvider;
@@ -30,9 +31,9 @@ namespace Celo.Service.RandomUser.Service
                     Title = LocalUserTitle,
                     Dob = System.DateTime.Now,
                     Email = LocalFakeEmail,
-                    LargePictureUrl = "https://randomuser.me/api/portraits/men/75.jpg",
-                    MediumPictureUrl = "https://randomuser.meapi/portraits/men/75.jpg",
-                    ThumbNail = "https://randomuser.me/api/portraits/men/75.jpg",
+                    LargePictureUrl = FakeImageUrl,
+                    MediumPictureUrl = FakeImageUrl,
+                    ThumbNail = FakeImageUrl,
                     Phone = $"0800-999-{i}"
                 });
             }
