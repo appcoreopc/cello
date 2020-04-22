@@ -16,7 +16,7 @@ namespace Celo.Service.RandomUser.UnitTests
     {
         public const string fakeFirstName = "fakeFirstName";
         public string fakeLastName = "fakeLastName";
-        public int fakeTotalRequested= 10;
+        public int fakeTotalRequested = 10;
         public int fakeUserId = 999;
         public string fakeUserEmail = "kepung@gmail.com";
         public string fakeUserTitle = "fakeUserTitle";
@@ -37,30 +37,42 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-        protected UserGetRequest FakeUserGetRequest() 
+        protected UserGetRequest FakeUserGetRequest()
         {
-            return new UserGetRequest {
-                
-                FirstName = fakeFirstName, 
-                LastName  = fakeLastName,
+            return new UserGetRequest
+            {
+                FirstName = fakeFirstName,
+                LastName = fakeLastName,
                 TotalRecordRequested = fakeTotalRequested
             };
         }
 
-        protected UserUpdateRequest FakeUserUpdateRequest() 
+         protected UserGetRequest FakeMinusZeroTotalPageUserGetRequest()
         {
-            return new UserUpdateRequest {
-                
-                FirstName = fakeFirstName, 
-                LastName  = fakeLastName,
+            return new UserGetRequest
+            {
+
+                FirstName = fakeFirstName,
+                LastName = fakeLastName,
+                TotalRecordRequested = -10
+            };
+        }
+
+        protected UserUpdateRequest FakeUserUpdateRequest()
+        {
+            return new UserUpdateRequest
+            {
+
+                FirstName = fakeFirstName,
+                LastName = fakeLastName,
                 Email = fakeUserEmail
             };
         }
 
-        protected UserResponse GetArrayUserResponse() 
+        protected UserResponse GetArrayUserResponse()
         {
             return new UserResponse
-            { 
+            {
                 Users = new List<UsersDetails> {
                     this.CreateUserDetails(fakeUserFirstName, fakeUserLastName),
                     this.CreateUserDetails(fakeUserFirstNameMar, fakeUserLastNameMar),
@@ -70,27 +82,27 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-        protected UserResponse GetSingleUserResponse() 
+        protected UserResponse GetSingleUserResponse()
         {
             return new UserResponse
-            { 
+            {
                 Users = new List<UsersDetails> {
                     this.CreateUserDetails(fakeUserFirstName, fakeUserLastName)
                 }
             };
         }
 
-        protected UserResponse GetUserResponse() 
+        protected UserResponse GetUserResponse()
         {
             return new UserResponse
-            { 
+            {
                 Users = new List<UsersDetails> {
                     this.CreateUserDetails(fakeUserFirstName, fakeUserLastName)
                 }
             };
         }
 
-        protected IEnumerable<User> GetFakeDatabaseUserData() 
+        protected IEnumerable<User> GetFakeDatabaseUserData()
         {
             return new List<User>
             {
@@ -99,7 +111,7 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-        protected IEnumerable<User> GetFakeSingleDatabaseUserData() 
+        protected IEnumerable<User> GetFakeSingleDatabaseUserData()
         {
             return new List<User>
             {
@@ -109,11 +121,13 @@ namespace Celo.Service.RandomUser.UnitTests
 
         protected UsersDetails CreateUserDetails(string FirstName, string LastName)
         {
-            return new UsersDetails { 
+            return new UsersDetails
+            {
 
-                Email = fakeUserEmail, 
-                Name = new Name {
-                    First = FirstName, 
+                Email = fakeUserEmail,
+                Name = new Name
+                {
+                    First = FirstName,
                     Last = LastName,
                     Title = fakeUserTitle
                 }
@@ -122,34 +136,35 @@ namespace Celo.Service.RandomUser.UnitTests
 
         protected IEnumerable<UsersDetails> GetUserDetailsList()
         {
-           return new List<UsersDetails>() {
+            return new List<UsersDetails>() {
                CreateUserDetails(fakeUserFirstName, fakeUserLastName),
                CreateUserDetails(fakeUserFirstNameJane, fakeUserLastNameJane),
            };
         }
 
-         protected IEnumerable<UsersDetails> GetEmptyUserDetailsList()
+        protected IEnumerable<UsersDetails> GetEmptyUserDetailsList()
         {
-           return new List<UsersDetails>();
+            return new List<UsersDetails>();
         }
 
         protected ActionResult<IEnumerable<UsersDetails>> GetActionResultUserDetailsList()
         {
-           var result = new List<UsersDetails>() {
+            var result = new List<UsersDetails>() {
                CreateUserDetails(fakeUserFirstName, fakeUserLastName),
                CreateUserDetails(fakeUserFirstNameJane, fakeUserLastNameJane),
            };
 
-           return new OkObjectResult(result);
+            return new OkObjectResult(result);
         }
 
-        private User CreateDatabaseUserData(string UserFirstName, string UserLastName) 
-        {    
-            return new User {
+        private User CreateDatabaseUserData(string UserFirstName, string UserLastName)
+        {
+            return new User
+            {
                 Email = fakeUserEmail,
                 LastName = UserLastName,
                 FirstName = UserFirstName
             };
         }
-     }
+    }
 }
