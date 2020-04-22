@@ -10,14 +10,11 @@ Help us make the Random User Generator better by contributing to our database an
 
 ### Guidelines
 
-Run the aplication. Next creat some sample datasets
+Run the aplication. Next create some sample datasets, send an empty post request 
 
 Create a POST with the following to http://localhost/user
 {
-  "id" : 14862,
-  "firstName" : "TheDude",
-  "lastName" : "Thedude",
-  "TotalRecordRequested" : 4
+  
 }
 
 To Retrieve records, create a GET request to http://localhost/user
@@ -25,10 +22,24 @@ To Retrieve records, create a GET request to http://localhost/user
   "TotalRecordRequested" : 4
 }
 
+Or your can use 
 
-To Update, create a PUT request to http://localhost/suser
+{
+  "firstname" : "", 
+  "lastname" : "",
+  "TotalRecordRequested" : 4
+}
+
+Send a HTTP PUT command
+
+To Update, create a PUT request to http://localhost/user
 {
 
 }
+
+Send a HTTP PUT command
+
+http://localhost/suser/UserValidNumber
+
 
 ### How to use
