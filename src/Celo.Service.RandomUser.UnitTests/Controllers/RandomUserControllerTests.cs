@@ -23,7 +23,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
 
-            var serviceResponse = controller.GetUsers(this.FakeUserGetRequest()).Result;
+            var serviceResponse = controller.GetUsersAsync(this.FakeUserGetRequest()).Result;
             var okResult = serviceResponse.Result as OkObjectResult;
 
             Assert.NotNull(okResult);
@@ -41,7 +41,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
 
-            var serverResponse = controller.GetUsers(this.FakeUserGetRequest()).Result;
+            var serverResponse = controller.GetUsersAsync(this.FakeUserGetRequest()).Result;
             var servicResponseResult = serverResponse.Result as OkObjectResult;
 
             Assert.NotNull(servicResponseResult);

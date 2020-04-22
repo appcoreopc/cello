@@ -30,11 +30,14 @@ namespace Celo.Service.RandomUser.Service
             switch (validatedRequest.QueryRequestType)
             {
                 case QueryRequestType.NameQuery:
-                    resultset =  await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    resultset =  await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) 
+                    || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, 
+                    request.TotalRecordRequested);
                     break;
 
                 case QueryRequestType.RandomQuery:
-                    resultset = await QueryBy((user) => true, AppConstant.DefaultStartPage, request.TotalRecordRequested);
+                    resultset = await QueryBy((user) => true, 
+                    AppConstant.DefaultStartPage, request.TotalRecordRequested);
                     break;
             }
 
@@ -52,7 +55,7 @@ namespace Celo.Service.RandomUser.Service
                 {
                     var modifiedUser = user.MapElementToUserDataObject(userExist);
                     var updatedUser = _context.User.Update(modifiedUser);
-                    var updateResult = await _context.SaveChangesAsync();
+                    var updateResult = await _context.SaveChangesAsync().ConfigureAwait(false);
 
                     if (updateResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
@@ -78,7 +81,7 @@ namespace Celo.Service.RandomUser.Service
                 if (userExist != null)
                 {
                     var deleteUser = _context.User.Remove(userExist);
-                    var deleteResult = await _context.SaveChangesAsync();
+                    var deleteResult = await _context.SaveChangesAsync().ConfigureAwait(false);
 
                     if (deleteResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
@@ -93,20 +96,23 @@ namespace Celo.Service.RandomUser.Service
             return status;
         }
 
+         ////////////////////////////////////////////////////////////////////
+        ///  For generating some fake data purposes
+        ////////////////////////////////////////////////////////////////////
+        public async Task CreateUserAsync(User user)
+        {
+            await _context.User.AddAsync(user).ConfigureAwait(false);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
         private async Task<IEnumerable<User>> QueryBy(Func<User, bool> UserQuery, int SkipNumber, int ReturnCount)
         {
             return _context.User.Where(UserQuery).Skip(SkipNumber).Take(ReturnCount);
         }
-
+        
         private User GetUserDetails(int userId)
         {
             return _context.User.SingleOrDefault(x => x.Id == userId);
-        }
-
-        public async Task CreateUserAsync(User user)
-        {
-            await _context.User.AddAsync(user);
-            await _context.SaveChangesAsync();
         }
     }
 }

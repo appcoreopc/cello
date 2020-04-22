@@ -33,7 +33,7 @@ namespace Celo.Service.RandomUser.Controllers
         [HttpGet]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<IEnumerable<UsersDetails>>> GetUsers(UserGetRequest request) 
+        public async Task<ActionResult<IEnumerable<UsersDetails>>> GetUsersAsync(UserGetRequest request) 
         {
             var result = await _userService.GetUserAsync(request);
             return Ok(result);

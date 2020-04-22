@@ -7,7 +7,7 @@ namespace Celo.Service.RandomUser.Validations
 
         public UserGetRequest ValidateUserQueryRequest(UserGetRequest request)
         {   
-            request.TotalRecordRequested = request.TotalRecordRequested < 0 ? AppConstant.DefaultPageSie : request.TotalRecordRequested;
+            request.TotalRecordRequested = request.TotalRecordRequested <= 0 ? AppConstant.DefaultPageSie : request.TotalRecordRequested;
             
             if (!string.IsNullOrWhiteSpace(request.FirstName) || !string.IsNullOrWhiteSpace(request.LastName))
             {
