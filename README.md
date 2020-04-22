@@ -8,6 +8,10 @@ While some places might have an SSN or their phone number might be formatted a c
 
 Help us make the Random User Generator better by contributing to our database and teaching us the proper way of formatting data for different nationalities.
 
+### Requirements
+
+dotnetcore2.1 (my macbook is too old :)
+
 ### Guidelines
 
 Run the aplication. 
