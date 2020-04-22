@@ -12,7 +12,7 @@ Help us make the Random User Generator better by contributing to our database an
 
 dotnetcore2.1 (my macbook is too old :)
 
-### Guidelines
+### How to use
 
 Run the aplication. 
 
@@ -49,4 +49,3 @@ Send a HTTP PUT command
 
 http://localhost/suser/UserValidNumber
 
-### How to use
