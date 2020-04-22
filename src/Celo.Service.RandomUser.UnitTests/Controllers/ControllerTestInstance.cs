@@ -9,5 +9,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
         public ILogger<UserController> LoggerInstance { get; set; }
 
         public IUserService UserService { get; set; }
+
+        public ICreateUserService CreateUserService { get; set; }
     }
 }

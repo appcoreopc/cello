@@ -21,6 +21,7 @@ namespace Celo.Service.RandomUser
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped(typeof(ICreateUserService), typeof(CreateUserService));
             services.AddScoped(typeof(IQueryValidator), typeof(QueryValidator));
             services.AddScoped(typeof(IUserDataProvider), typeof(UserDataProvider));
             services.AddScoped(typeof(IUserService), typeof(RandomUserService));

@@ -21,8 +21,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
             _mockService = this.CreateInstance();
             _mockService.UserService.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetUserDetailsList()));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
-
+            var controller = CreateTarget();
             var serviceResponse = controller.GetUsersAsync(this.FakeUserGetRequest()).Result;
             var okResult = serviceResponse.Result as OkObjectResult;
 
@@ -39,7 +38,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
             _mockService = this.CreateInstance();
             _mockService.UserService.GetUserAsync(Arg.Any<UserGetRequest>()).Returns(Task.FromResult(GetEmptyUserDetailsList()));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+            var controller = CreateTarget();
 
             var serverResponse = controller.GetUsersAsync(this.FakeUserGetRequest()).Result;
             var servicResponseResult = serverResponse.Result as OkObjectResult;
@@ -59,7 +58,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             _mockService.UserService.UpdateUserAsync(Arg.Any<UserUpdateRequest>()).Returns(Task.FromResult(DataOperationStatus.UpdateSuccess));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+            var controller = CreateTarget();
             var serverResponse = controller.UpdateUserAsync(this.FakeUserUpdateRequest()).Result;
 
             var servicResponseResult = serverResponse as CreatedResult;
@@ -75,7 +74,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             _mockService.UserService.UpdateUserAsync(Arg.Any<UserUpdateRequest>()).Returns(Task.FromResult(DataOperationStatus.UpdateFailedError));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+            var controller = CreateTarget();
             var serverResponse = controller.UpdateUserAsync(this.FakeUserUpdateRequest()).Result;
 
             var servicResponseResult = serverResponse as NoContentResult;
@@ -91,7 +90,7 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             _mockService.UserService.DeleteUserAsync(Arg.Any<int>()).Returns(Task.FromResult(DataOperationStatus.DeleteSuccess));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+            var controller = CreateTarget();
             var serverResponse = controller.DeleteAsync(UserId).Result;
 
             var servicResponseResult = serverResponse as CreatedResult;
@@ -107,13 +106,19 @@ namespace Celo.Service.RandomUser.UnitTests.Controllers
 
             _mockService.UserService.DeleteUserAsync(Arg.Any<int>()).Returns(Task.FromResult(DataOperationStatus.DeleteFailedError));
 
-            var controller = new UserController(_mockService.UserService, _mockService.LoggerInstance);
+            var controller = CreateTarget();
             var serverResponse = controller.DeleteAsync(UserId).Result;
 
             var servicResponseResult = serverResponse as NoContentResult;
             Assert.True(servicResponseResult.StatusCode == 204);
 
             _mockService.UserService.Received().DeleteUserAsync(Arg.Any<int>());
+        }
+
+        private UserController CreateTarget()
+        {
+            return new UserController(_mockService.UserService, _mockService.LoggerInstance,
+            _mockService.CreateUserService);
         }
     }
 }

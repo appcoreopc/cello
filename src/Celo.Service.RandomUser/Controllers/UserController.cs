@@ -23,13 +23,11 @@ namespace Celo.Service.RandomUser.Controllers
         private const string CreatedActionName = "CreateAsync";
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _ilogger;
+        private readonly ICreateUserService _createUserService;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
-        {
-            _userService = userService;
-            _ilogger = logger;
-        }
-        
+        public UserController(IUserService userService, ILogger<UserController> logger, ICreateUserService createUserService) 
+        => (_userService, _ilogger, _createUserService ) = (userService, logger, createUserService);
+    
         [HttpGet]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]

@@ -33,7 +33,8 @@ namespace Celo.Service.RandomUser.UnitTests
             return new ControllerTestInstance
             {
                 LoggerInstance = Substitute.For<ILogger<UserController>>(),
-                UserService = Substitute.For<IUserService>()
+                UserService = Substitute.For<IUserService>(),
+                CreateUserService = Substitute.For<ICreateUserService>()
             };
         }
 

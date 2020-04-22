@@ -3,7 +3,7 @@ using Celo.Data.InMemory;
 
 namespace Celo.Service.RandomUser.Service
 {
-    public class CreateUserService
+    public class CreateUserService : ICreateUserService
     {
         private const string LocalUserLastName = "LocalUserLastName";
         private const string LocalUserName = "LocalUser";
