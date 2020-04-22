@@ -15,7 +15,7 @@ namespace Celo.Service.RandomUser.ResponseUtil
                  case DataOperationStatus.NoDeleteCarriedOut:
                  case DataOperationStatus.UpdateFailedError:
                  case DataOperationStatus.NoUpdateCarriedOut:
-                    return new NotFoundObjectResult(NoContentFoundDescription);
+                    return new NoContentResult();
                  case DataOperationStatus.DeleteSuccess:
                  case DataOperationStatus.UpdateSuccess:
                       return new CreatedResult(action, dataObject);

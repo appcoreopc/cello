@@ -43,7 +43,6 @@ namespace Celo.Service.RandomUser.ResponseUtil
 
         public static User MapElementToUserDataObject(this UserUpdateRequest user, User userDataObject)
         {
-
             userDataObject.Email = user.Email;
             userDataObject.FirstName = user.FirstName;
             userDataObject.LastName = user.LastName;

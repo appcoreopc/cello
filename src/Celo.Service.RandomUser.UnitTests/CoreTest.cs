@@ -8,6 +8,7 @@ using Celo.Service.RandomUser.Service;
 using Celo.Service.RandomUser.UnitTests.Controllers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Celo.Service.RandomUser.UnitTests
 {
@@ -50,9 +51,9 @@ namespace Celo.Service.RandomUser.UnitTests
         {
             return new UserUpdateRequest {
                 
-                Id = fakeUserId,
-                Email = fakeUserEmail,
-                
+                FirstName = fakeFirstName, 
+                LastName  = fakeLastName,
+                Email = fakeUserEmail
             };
         }
 
@@ -98,7 +99,7 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-         protected IEnumerable<User> GetFakeSingleDatabaseUserData() 
+        protected IEnumerable<User> GetFakeSingleDatabaseUserData() 
         {
             return new List<User>
             {
@@ -106,16 +107,7 @@ namespace Celo.Service.RandomUser.UnitTests
             };
         }
 
-        private User CreateDatabaseUserData(string UserFirstName, string UserLastName) 
-        {    
-            return new User {
-                Email = fakeUserEmail,
-                LastName = UserLastName,
-                FirstName = UserFirstName
-            };
-        }
-
-        private UsersDetails CreateUserDetails(string FirstName, string LastName)
+        protected UsersDetails CreateUserDetails(string FirstName, string LastName)
         {
             return new UsersDetails { 
 
@@ -125,6 +117,38 @@ namespace Celo.Service.RandomUser.UnitTests
                     Last = LastName,
                     Title = fakeUserTitle
                 }
+            };
+        }
+
+        protected IEnumerable<UsersDetails> GetUserDetailsList()
+        {
+           return new List<UsersDetails>() {
+               CreateUserDetails(fakeUserFirstName, fakeUserLastName),
+               CreateUserDetails(fakeUserFirstNameJane, fakeUserLastNameJane),
+           };
+        }
+
+         protected IEnumerable<UsersDetails> GetEmptyUserDetailsList()
+        {
+           return new List<UsersDetails>();
+        }
+
+        protected ActionResult<IEnumerable<UsersDetails>> GetActionResultUserDetailsList()
+        {
+           var result = new List<UsersDetails>() {
+               CreateUserDetails(fakeUserFirstName, fakeUserLastName),
+               CreateUserDetails(fakeUserFirstNameJane, fakeUserLastNameJane),
+           };
+
+           return new OkObjectResult(result);
+        }
+
+        private User CreateDatabaseUserData(string UserFirstName, string UserLastName) 
+        {    
+            return new User {
+                Email = fakeUserEmail,
+                LastName = UserLastName,
+                FirstName = UserFirstName
             };
         }
      }

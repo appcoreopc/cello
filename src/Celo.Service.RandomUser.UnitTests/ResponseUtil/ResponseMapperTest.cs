@@ -31,7 +31,7 @@ namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
         {
             object dataObject = new object();
             var result = ResponseMapper.MapResponse(DataOperationStatus.NoUpdateCarriedOut, Action, dataObject);
-            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.IsType<NoContentResult>(result);
         }
     }
 }

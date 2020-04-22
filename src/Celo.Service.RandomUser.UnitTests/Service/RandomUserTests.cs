@@ -51,6 +51,20 @@ namespace Celo.Service.RandomUser.UnitTests.Service
             dataProviderService.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
         }
 
+         [Fact]
+        public void WhenNoUpdateUserExecutesThenReturnStatusOk()
+        {
+            var dataProviderService = this.CreateMock();
+            var target = new RandomUserService(dataProviderService);
+
+            dataProviderService.UpdateUserAsync(Arg.Any<UserUpdateRequest>()).Returns(Task.FromResult(DataOperationStatus.UpdateFailedError));
+
+            var result = target.UpdateUserAsync(this.FakeUserUpdateRequest()).Result;
+           
+            Assert.True(result == DataOperationStatus.UpdateFailedError);
+            dataProviderService.Received().UpdateUserAsync(Arg.Any<UserUpdateRequest>());
+        }
+
 
         [Fact]
         public void WhenDeleteUserExecutesThenReturnStatusOk()
@@ -65,6 +79,22 @@ namespace Celo.Service.RandomUser.UnitTests.Service
             var result = target.DeleteUserAsync(fakeUserId).Result;
            
             Assert.True(result == DataOperationStatus.DeleteSuccess);
+            dataProviderService.Received().DeleteUserAsync(fakeUserId);
+        }
+
+        [Fact]
+        public void WhenNoDeleteExecutesThenReturnNoContentFound()
+        {
+            var dataProviderService = this.CreateMock();
+            var target = new RandomUserService(dataProviderService);
+
+            int fakeUserId = 1;
+
+            dataProviderService.DeleteUserAsync(Arg.Any<int>()).Returns(Task.FromResult(DataOperationStatus.DeleteFailedError));
+
+            var result = target.DeleteUserAsync(fakeUserId).Result;
+        
+            Assert.True(result == DataOperationStatus.DeleteFailedError);
             dataProviderService.Received().DeleteUserAsync(fakeUserId);
         }
 
