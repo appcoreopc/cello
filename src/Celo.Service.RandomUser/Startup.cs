@@ -1,5 +1,6 @@
 ﻿using Celo.Data.InMemory;
 using Celo.Service.RandomUser.Service;
+using Celo.Service.RandomUser.Validations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace Celo.Service.RandomUser
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(UserDataProvider), typeof(UserDataProvider));
+            services.AddScoped(typeof(IQueryValidator), typeof(QueryValidator));
             services.AddScoped(typeof(IUserDataProvider), typeof(UserDataProvider));
             services.AddScoped(typeof(IUserService), typeof(RandomUserService));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -39,7 +40,6 @@ namespace Celo.Service.RandomUser
             }
 
             app.UseMvc();
-        
         }
     }
 }

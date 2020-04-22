@@ -13,11 +13,13 @@ namespace Celo.Service.RandomUser.Service
 {
     class UserDataProvider : IUserDataProvider
     {
+        private const int DbOperationRecordAffected = 0;
         private readonly UserDataContext _context;
         private readonly ILogger<UserDataProvider> _logger;
-        private readonly IQueryValidator _queryValidator = new QueryValidator();
+        private readonly IQueryValidator _queryValidator;
 
-        public UserDataProvider(UserDataContext context, ILogger<UserDataProvider> logger) => (_context, _logger) = (context, logger);
+        public UserDataProvider(UserDataContext context, ILogger<UserDataProvider> logger, IQueryValidator  validator)
+         => (_context, _logger, _queryValidator) = (context, logger, validator);
 
         public async Task<IEnumerable<User>> GetUserAsync(UserGetRequest request)
         {
@@ -47,10 +49,9 @@ namespace Celo.Service.RandomUser.Service
                     var updatedUser = _context.User.Update(userExist);
                     var updateResult = await _context.SaveChangesAsync();
 
-                    if (updateResult > 0)
+                    if (updateResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
                 }
-
             }
             catch (DbUpdateException dbe)
             {
@@ -74,7 +75,7 @@ namespace Celo.Service.RandomUser.Service
                     var deleteUser = _context.User.Remove(userExist);
                     var deleteResult = await _context.SaveChangesAsync();
 
-                    if (deleteResult > 0)
+                    if (deleteResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
                 }
             }

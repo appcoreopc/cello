@@ -52,9 +52,9 @@ namespace Celo.Service.RandomUser.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(int userId)
         {
-            var deleteResult = await _userService.DeleteUserAsync(id);
+            var deleteResult = await _userService.DeleteUserAsync(userId);
             return deleteResult.MapResponse(DeleteActionName, new object{});
         }
 
