@@ -26,7 +26,7 @@ namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
             Assert.IsType<CreatedResult>(result);
         }
 
-         [Fact]
+        [Fact]
         public void WhenUpdateFailThenNoContentReturned()
         {
             object dataObject = new object();
@@ -34,5 +34,4 @@ namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
             Assert.IsType<NotFoundObjectResult>(result);
         }
     }
-
 }

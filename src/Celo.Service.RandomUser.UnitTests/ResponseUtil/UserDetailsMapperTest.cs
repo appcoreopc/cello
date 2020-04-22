@@ -1,14 +1,24 @@
 using Xunit;
-using NSubstitute;
-using Celo.Service.RandomUser.Service;
-using Celo.Service.Models.ServiceModels.Request;
-using System.Threading.Tasks;
 using System.Linq;
+using Celo.Service.RandomUser.ResponseUtil;
+using Celo.Service.Models.ServiceModels;
 
 namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
 {
-    public class UserDetailsMapperTest {
-        
-    }
+    public class UserDetailsMapperTest : CoreTest
+    {
+        [Fact]
+        public void WhenConvertSucessfulThenUserDetailsTypeReturned()
+        {
+           var target = GetFakeSingleDatabaseUserData().MapToUserDetails();
+           
+           var targetObject = target.FirstOrDefault();
+           Assert.NotNull(target);
+           Assert.True(target.Count() == 1);
+           Assert.IsType<UsersDetails>(targetObject);
 
+           Assert.Equal(fakeFirstName, targetObject.Name.First);
+           Assert.Equal(fakeUserEmail, targetObject.Email);
+        }
+    }
 }
