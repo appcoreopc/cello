@@ -22,7 +22,6 @@ namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
            Assert.Equal(fakeUserEmail, targetObject.Email);
         }
 
-
         [Fact]
         public void WhenMappingCompleteThenUpdateUserRequestTransferedToUserObject()
         {
@@ -33,7 +32,6 @@ namespace Celo.Service.RandomUser.UnitTests.ResponseUtil
             Assert.Equal(fakeFirstName, target.FirstName);
             Assert.Equal(fakeLastName, target.LastName);
             Assert.Equal(fakeUserEmail, target.Email);
-
         }
     }
 }
