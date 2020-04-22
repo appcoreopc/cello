@@ -49,7 +49,7 @@ namespace Celo.Service.RandomUser.Controllers
            
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{userId}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync(int userId)
