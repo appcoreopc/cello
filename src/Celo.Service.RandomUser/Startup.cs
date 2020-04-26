@@ -25,7 +25,7 @@ namespace Celo.Service.RandomUser
             services.AddScoped(typeof(IQueryValidator), typeof(QueryValidator));
             services.AddScoped(typeof(IUserDataProvider), typeof(UserDataProvider));
             services.AddScoped(typeof(IUserService), typeof(RandomUserService));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddXmlDataContractSerializerFormatters();
             services.AddDbContext<UserDataContext>(opt => opt.UseInMemoryDatabase());
         }
 
