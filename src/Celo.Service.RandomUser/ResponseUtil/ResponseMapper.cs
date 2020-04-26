@@ -20,7 +20,7 @@ namespace Celo.Service.RandomUser.ResponseUtil
                  case DataOperationStatus.UpdateSuccess:
                       return new CreatedResult(action, dataObject);
                 default:
-                    return new OkResult();
+                    return new StatusCodeResult(405);
              }
          }
      }

@@ -21,6 +21,7 @@ namespace Celo.Service.RandomUser.Controllers
         private const string UpdateActionName = "UpdateUserAsync";
         private const string DeleteActionName = "DeleteAsync";
         private const string CreatedActionName = "CreateAsync";
+        private const string GetUsersAsyncText = "GetUsersAsync";
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _ilogger;
         private readonly ICreateUserService _createUserService;
@@ -28,7 +29,7 @@ namespace Celo.Service.RandomUser.Controllers
         public UserController(IUserService userService, ILogger<UserController> logger, ICreateUserService createUserService) 
         => (_userService, _ilogger, _createUserService ) = (userService, logger, createUserService);
     
-        [HttpGet]
+        [HttpGet()]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<IEnumerable<UsersDetails>>> GetUsersAsync(UserGetRequest request) 
@@ -43,7 +44,7 @@ namespace Celo.Service.RandomUser.Controllers
         public async Task<IActionResult> UpdateUserAsync([FromBody] UserUpdateRequest request)
         {
             var updateResult = await _userService.UpdateUserAsync(request);
-            return updateResult.MapResponse(UpdateActionName, request);
+            return updateResult.MapResponse(GetUsersAsyncText, request);
            
         }
 
@@ -64,7 +65,7 @@ namespace Celo.Service.RandomUser.Controllers
         {
              var service = new CreateUserService(_userService);
              await service.CreateUserAsync();
-             return CreatedAtAction(CreatedActionName, request);
+             return CreatedAtAction(GetUsersAsyncText, request);
         }
     }
 }
