@@ -67,5 +67,12 @@ namespace Celo.Service.RandomUser.Controllers
              await service.CreateUserAsync();
              return CreatedAtAction(GetUsersAsyncText, request);
         }
+
+        [HttpOptions]
+        public IActionResult GetOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,PUT");
+            return Ok();
+        }
     }
 }
