@@ -1,12 +1,10 @@
 # Randomuser.me-Dotnetcore
 
 ### About
-This is the source code that powers the randomuser.me User Generator.
+This is the source code that mimic randomuser.me User Generator.
 
 Our goal is to have a very diverse database that consists of data unique to different nationalities.
 While some places might have an SSN or their phone number might be formatted a certain way, other places usually follow a completely different set of rules.
-
-Help us make the Random User Generator better by contributing to our database and teaching us the proper way of formatting data for different nationalities.
 
 ### Requirements
 
@@ -47,5 +45,5 @@ To Update, create a PUT request to http://localhost/user
 
 Send a HTTP PUT command
 
-http://localhost/suser/UserValidNumber
+http://localhost/suser/##UserValidNumber##
 
