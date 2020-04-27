@@ -2,10 +2,8 @@ using System.Threading.Tasks;
 using Celo.Data.InMemory;
 using System.Linq;
 using System.Collections.Generic;
-using System;
 using Celo.Service.Models.ServiceModels.Request;
 using Celo.Service.RandomUser.Validations;
-using Celo.Service.RandomUser.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Celo.Service.RandomUser.ResponseUtil;
@@ -25,23 +23,7 @@ namespace Celo.Service.RandomUser.Service
         public async Task<IEnumerable<User>> GetUserAsync(UserGetRequest request)
         {
             var validatedRequest = _queryValidator.ValidateUserQueryRequest(request);
-            IEnumerable<User> resultset = null; 
-
-            switch (validatedRequest.QueryRequestType)
-            {
-                case QueryRequestType.NameQuery:
-                    resultset =  await QueryBy((user) => (user.FirstName.Contains(validatedRequest.FirstName) 
-                    || user.LastName.Contains(request.LastName)), AppConstant.DefaultStartPage, 
-                    request.TotalRecordRequested);
-                    break;
-
-                case QueryRequestType.RandomQuery:
-                    resultset = await QueryBy((user) => true, 
-                    AppConstant.DefaultStartPage, request.TotalRecordRequested);
-                    break;
-            }
-
-            return resultset ?? new List<User>();
+            return await ExecuteQueryAsync(validatedRequest);
         }
 
         public async Task<DataOperationStatus> UpdateUserAsync(UserUpdateRequest user)
@@ -105,9 +87,25 @@ namespace Celo.Service.RandomUser.Service
             await _context.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        private async Task<IEnumerable<User>> QueryBy(Func<User, bool> UserQuery, int SkipNumber, int ReturnCount)
+        private async Task<IEnumerable<User>> ExecuteQueryAsync(UserGetRequest request)
         {
-            return _context.User.Where(UserQuery).Skip(SkipNumber).Take(ReturnCount);
+            switch (request.QueryRequestType)
+            {
+                case QueryRequestType.FirstNameQuery:
+                    return _context.User.Where(x => x.FirstName.Contains(request.FirstName)).Skip(request.StartPage).Take(request.TotalRecordRequested);
+             
+                case QueryRequestType.LastNameQuery:
+                    return _context.User.Where(x => x.LastName.Contains(request.LastName)).Skip(request.StartPage).Take(request.TotalRecordRequested);
+             
+                case QueryRequestType.NameQuery:
+                    return _context.User.Where(x => x.FirstName.Contains(request.FirstName) &&
+                    x.LastName.Contains(request.LastName)).Skip(request.StartPage).Take(request.TotalRecordRequested);
+             
+                case QueryRequestType.RandomQuery:
+                   return _context.User.Skip(request.StartPage).Take(request.TotalRecordRequested);
+             
+            }
+            return new List<User>();;
         }
         
         private User GetUserDetails(int userId)

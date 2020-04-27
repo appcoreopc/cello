@@ -4,6 +4,8 @@ namespace Celo.Service.Models.ServiceModels.Request
     {
         UnAssigned = 0,
         RandomQuery = 1, 
-        NameQuery = 2
+        FirstNameQuery = 2,
+        LastNameQuery = 3,
+        NameQuery = 4,
     }
 }
