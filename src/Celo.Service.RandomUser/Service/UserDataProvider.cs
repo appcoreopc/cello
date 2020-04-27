@@ -55,7 +55,7 @@ namespace Celo.Service.RandomUser.Service
                 {
                     var modifiedUser = user.MapElementToUserDataObject(userExist);
                     var updatedUser = _context.User.Update(modifiedUser);
-                    var updateResult = await _context.SaveChangesAsync().ConfigureAwait(false);
+                    var updateResult = await _context.SaveChangesAsync();
 
                     if (updateResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
@@ -81,7 +81,7 @@ namespace Celo.Service.RandomUser.Service
                 if (userExist != null)
                 {
                     var deleteUser = _context.User.Remove(userExist);
-                    var deleteResult = await _context.SaveChangesAsync().ConfigureAwait(false);
+                    var deleteResult = await _context.SaveChangesAsync();
 
                     if (deleteResult > DbOperationRecordAffected)
                         status = DataOperationStatus.UpdateSuccess;
